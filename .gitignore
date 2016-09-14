@@ -31,12 +31,14 @@
 # Debug files
 *.dSYM/
 *.su
-/BookPrint/print_input
-/BookPrint/Debug
-/BookPrint/ipch
-/BookPrint/*.sdf
-/BookPrint/*.sln
-/BookPrint/*.suo
-/BookPrint/*.vcxproj
-/BookPrint/*.filters
-/BookPrint/*.user
+
+/*/print_input
+/*/Debug
+/*/ipch
+*.sdf
+*.opensdf
+*.sln
+*.suo
+*.vcxproj
+*.filters
+*.user
