@@ -23,9 +23,12 @@ int main()
 //    quicksort(a,0,N-1);
 //    display(a,N);
 
-    cout<<"====bubblesort===="<<endl;
-    bubblesort(a,N);
-    display(a,N);
+//    cout<<"====bubblesort===="<<endl;
+//    bubblesort(a,N);
+//    display(a,N);
 
+    cout<<"====directInsertsort===="<<endl;
+    directInsertsort(a,N);
+    display(a,N);
     return 0;
 }
