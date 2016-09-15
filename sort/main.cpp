@@ -27,8 +27,16 @@ int main()
 //    bubblesort(a,N);
 //    display(a,N);
 
-    cout<<"====directInsertsort===="<<endl;
-    directInsertsort(a,N);
+//    cout<<"====directInsertsort===="<<endl;
+//    directInsertsort(a,N);
+//    display(a,N);
+
+//    cout<<"====binaryInsertsort===="<<endl;
+//    binaryInsertsort(a,N);
+//    display(a,N);
+
+    cout<<"====directSelectsort===="<<endl;
+    directSelectsort(a,N);
     display(a,N);
     return 0;
 }
