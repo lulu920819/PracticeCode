@@ -35,8 +35,10 @@ int main()
 //    binaryInsertsort(a,N);
 //    display(a,N);
 
-    cout<<"====directSelectsort===="<<endl;
-    directSelectsort(a,N);
-    display(a,N);
+    int b[N+1] = {-1,6,8,7,9,0,1,3,2,4,5};
+    cout<<"====heapsort===="<<endl;
+    // 下标从1开始的
+    heapsort(b,N);
+    display(b,N+1);
     return 0;
 }
