@@ -16,7 +16,7 @@ private:
 	Coordinate curCordinate;
 	int LineMode;
 	bool isResult;
-	
+public:	
 	bool isIDLegal(string IDLine);
 	bool isTimeLegal(string TimeLine);
 	bool isXYLegal(string XYLine);
@@ -33,7 +33,7 @@ private:
 	void ConflictErr();
 
 	string getResult();
-public:
+
 	string GetSnapShot(string historyData, string id);
 
 	SnapShot();

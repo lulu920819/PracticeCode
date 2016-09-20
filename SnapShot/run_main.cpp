@@ -9,8 +9,11 @@ int main()
 	cout<<id<<endl;
 	SnapShot *ss = new SnapShot;
 	string res = ss->GetSnapShot(historyData,id);
-
 	cout<<res<<endl;
+
+
+	SnapShot *Test= new SnapShot();
+	Test->setID("cat1");
 
 	return 0;
 }
