@@ -2,20 +2,28 @@
 #include <vector>
 #include <string>
 #include <utility>
-#define _TEST
+//#define _TEST
+#ifndef _TEST
+#define CONTROL private
+#else
+#define CONTROL public
+#endif
+
+
 using namespace std;
 
 typedef pair<int ,int > Coordinate;
+typedef map<string,Coordinate> StatusInfo;
 
 class SnapShot
 {
 private:
-	map<string, Coordinate > LatestStatus;  // AnimalName, X, Y
+	StatusInfo LatestStatus;  // AnimalName, X, Y
 	string id;
 	string curAnimalName;
 	Coordinate curCordinate;
 	int LineMode;
-public:	
+CONTROL:
 	// validate check
 	bool isIDLegal(string IDLine);
 	bool isTimeLegal(string TimeLine);
@@ -37,14 +45,16 @@ public:
 	void setLineMode(int _LineMode);
 	int getLineMode();
 
-	void updateLatestStatus(map<string, Coordinate>::iterator  it);
+	void updateLatestStatus(StatusInfo::iterator  it);
 	void addLatestStatus();
-	string getLatestStatus();
+	string getLatestStatusString();
+	StatusInfo& getLatestStatus();
 
 	// Error
 	string InvalidErr();
 	string ConflictErr(string id);
 
+public:	
 	string GetSnapShot(string historyData, string id);
 
 	SnapShot();

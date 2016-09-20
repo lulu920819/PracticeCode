@@ -1,5 +1,7 @@
 #include <gtest/gtest.h> 
 #include "SnapShot.h"
+#ifdef _TEST
+
 
 TEST(SnapShot, isIDLegal) 
 { 
@@ -17,6 +19,27 @@ TEST(SnapShot, isIDLegal)
 	// validate the result after operation 
 	EXPECT_TRUE(ss->isIDLegal(str1));
 	EXPECT_FALSE(ss->isIDLegal(str2));
+
+	delete ss; 
+}
+
+TEST(SnapShot, isTimeLegal) 
+{ 
+	// do some initialization 
+	SnapShot* ss = new SnapShot(); 
+
+	// validate the pointer is not null 
+	ASSERT_TRUE(ss != NULL); 
+	// call the method we want to test 
+
+	string str1 = "2016/09/02 22:30:52";
+	string str2 = "2016:09:02 22:30:52";
+	string str3 = "16:09:02 22:30:52";
+	vector<int> res;
+	// validate the result after operation 
+	EXPECT_TRUE(ss->isTimeLegal(str1));
+	EXPECT_FALSE(ss->isTimeLegal(str2));
+	EXPECT_FALSE(ss->isTimeLegal(str3));
 
 	delete ss; 
 }
@@ -69,7 +92,7 @@ TEST(SnapShot, isXYLegal)
 }
 
 
-TEST(SnapShot, isTimeLegal) 
+TEST(SnapShot, isXYConflict) 
 { 
 	// do some initialization 
 	SnapShot* ss = new SnapShot(); 
@@ -77,19 +100,58 @@ TEST(SnapShot, isTimeLegal)
 	// validate the pointer is not null 
 	ASSERT_TRUE(ss != NULL); 
 	// call the method we want to test 
-
-	string str1 = "2016/09/02 22:30:52";
-	string str2 = "2016:09:02 22:30:52";
-	string str3 = "16:09:02 22:30:52";
-	vector<int> res;
+	// map of status is null 
+	vector<int> xy_cor;
+	xy_cor.push_back(5);
+	xy_cor.push_back(6);
+	ss->setAnimalName("cat1");
 	// validate the result after operation 
-	EXPECT_TRUE(ss->isTimeLegal(str1));
-	EXPECT_FALSE(ss->isTimeLegal(str2));
-	EXPECT_FALSE(ss->isTimeLegal(str3));
+	EXPECT_TRUE(ss->isXYConflict(xy_cor));
+	EXPECT_FALSE(ss->isXYConflict(xy_cor));
+	
 
 	delete ss; 
 }
 
+TEST(SnapShot, setValues)
+{
+	// do some initialization 
+	SnapShot* ss = new SnapShot(); 
+
+	// validate the pointer is not null 
+	ASSERT_TRUE(ss != NULL); 
+	
+	//  setcurCordinate
+	int x  = 1; int y =2;
+	ss->setcurCordinate(x,y);
+	Coordinate c = ss->getCordinate();
+	// validate the result after operation 
+	EXPECT_EQ(x,c.first);
+	EXPECT_EQ(y,c.second);
+
+	// setAnimalName
+	string  name = "cat1";
+	ss->setAnimalName(name);
+	EXPECT_STREQ(name.c_str(),ss->getAnimalName().c_str());
+
+	// add to map
+	ss->addLatestStatus();
+	EXPECT_STREQ("cat1 1 2\n",ss->getLatestStatusString().c_str());
+
+	// insert to map
+	ss->updatecurCordinate(c,4,6);  // 5 8
+	Coordinate c2 = ss->getCordinate();
+	EXPECT_EQ(x+4,c2.first);
+	EXPECT_EQ(y+6,c2.second);  
+
+	StatusInfo&  m=  ss->getLatestStatus();
+	StatusInfo::iterator it = m.begin();
+	ss->updateLatestStatus(it);
+	EXPECT_STREQ("cat1 5 8\n",ss->getLatestStatusString().c_str());
+
+
+	delete ss; 
+}
 
 TEST(SnapShot, GetSnapShot) 
 { 
@@ -115,3 +177,5 @@ TEST(SnapShot, GetSnapShot)
 	delete ss1; 
 	delete ss2; 
 }
+
+#endif // _TEST
