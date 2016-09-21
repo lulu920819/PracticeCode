@@ -8,10 +8,13 @@ boost库(split和正则）
 ---
 
 # 文件说明
--  SnapShot.h : 头文件 
+- SnapShot.h : 头文件 
 - SnapShot.cpp : 实现函数 
 - SnapShotTest.cpp : 使用gtest工具单元测试代码
 - run_main.cpp : 主函数，通过SnapShot.h中的宏定义`_TEST`进行单元测试或者运行
+- SnapShotTime.h : 时间类的头文件
+- SnapShotTime.cpp： 时间类的实现函数
+- SnapShotTimeTest.cpp ：时间类的测试文件
 
 ---
 # 流程图
@@ -23,6 +26,7 @@ op2=>operation: 读入id行
 cond1=>condition: 是否合法
 op3=>operation: 读入时间行
 cond2=>condition: 是否合法
+cond22=>condition: 是否有效
 op4=>operation: 读入动物坐标行
 cond3=>condition: 是否合法
 cond4=>condition: 是否有效
@@ -34,8 +38,10 @@ st->op1->op2->cond1
 cond1(yes)->op3
 cond1(no)->e
 op3->cond2
-cond2(yes)->op4
+cond2(yes)->cond22
 cond2(no)->e
+cond22(yes)->op4
+cond22(no)->e
 op4->cond3
 cond3(no)->e
 cond3(yes)->cond4
@@ -58,6 +64,7 @@ string id;  // 当前的读取的最新id
 string curAnimalName;	// 当前的读取的最新动物名
 Coordinate curCordinate;  // 当前的最新的坐标
 int LineMode;	// 第几行
+SnapShotTime LatestTime;  // 记录上一个时间
 ```
 
 ## 成员函数
@@ -67,13 +74,16 @@ int LineMode;	// 第几行
 	// validate check
 	bool isIDLegal(string IDLine);
 	bool isTimeLegal(string TimeLine);
+	bool isTimeConflict(string TimeLine);
 	bool isXYLegal(string XYLine,vector<int> &xy_cor);
 	bool isXYConflict(vector<int>& xy_cor);
 	bool splitXY(string XYLine, vector<string> & result);
 ```
 检查原则
 > 1. id: 不包含空格
-> 2. 时间：yyyy/mm/dd hh:mm:ss
+> 2. 时间：
+> * yyyy/mm/dd hh:mm:ss
+> * 当前时间比上一时间大
 > 3. 坐标，以空格分割
 > * 数目：初次出现为3 或者 第二次出现为5，其余均不合法
 > * 是否含无效字符：数字坐标中含字母
@@ -84,6 +94,9 @@ int LineMode;	// 第几行
 	// set and get attribute
 	void setID(string _id);
 	string getID();
+
+	void setLatestTime(SnapShotTime _LatestTime);
+	SnapShotTime getLastestTime();
 
 	void setAnimalName(string _AnimalName);
 	string getAnimalName();
@@ -105,6 +118,9 @@ int LineMode;	// 第几行
 ---
 
 # 单元测试说明
+## class SnapShot测试
+> SnapShotTest.cpp
+> 
 1. 检查id合法
 TEST(SnapShot, isIDLegal) 
 输入：有空格的id
@@ -122,16 +138,31 @@ TEST(SnapShot, isXYConflict)
 输入：在已经出现的情况下，代入两个坐标点
 6. 设置获取状态
 TEST(SnapShot, setValues)
+输入：set和get是否匹配
 7. 接口函数测试
 TEST(SnapShot, GetSnapShot)
+输入：样例，坐标错误，时间比上次少
+
+## class SnapShotTime测试
+> SnapShotTimeTest.cpp
+> 
+1.  重载赋值运算符 =
+TEST(SnapShotTime, operator_COPY) 
+2.  重载大于运算符 >
+TEST(SnapShotTime, operator_bigger) 
+3. 设置获取状态
+TEST(SnapShotTime, setTimeValues)
+输入：set和get是否匹配
+
 
 ---
 
 # github链接
 [github - lulu](https://github.com/lulu920819/PracticeCode/tree/master/SnapShot)
 [csdn - lulu](http://blog.csdn.net/github_30830155)
+
 ---
 
 # 改进之处
-1. 判断时间，现在只是正则检查格式和数字，而没有对时间的合理性进行检查，比如闰年
-2. 时间也会存在冲突，下一个时间要满足比上一个时间大
+1. 判断时间，现在只是正则检查格式和数字，而没有对时间的合理性进行检查，比如闰年，可以用正则，待修改
+2. 时间也会存在冲突，下一个时间要满足比上一个时间大（2016/09/22 done）
