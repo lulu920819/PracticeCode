@@ -2,8 +2,11 @@
 
 # 环境
 c++
+
 boost库(split和正则）
+
 单元测试google test工具
+
  
 ---
 
@@ -80,14 +83,9 @@ SnapShotTime LatestTime;  // 记录上一个时间
 	bool splitXY(string XYLine, vector<string> & result);
 ```
 检查原则
-> 1. id: 不包含空格
-> 2. 时间：
-> * yyyy/mm/dd hh:mm:ss
-> * 当前时间比上一时间大
-> 3. 坐标，以空格分割
-> * 数目：初次出现为3 或者 第二次出现为5，其余均不合法
-> * 是否含无效字符：数字坐标中含字母
-> * 是否和上次状态匹配
+> - id: 不包含空格
+> - 时间： yyyy/mm/dd hh:mm:ss；当前时间比上一时间大
+> - 坐标，以空格分割： 数目：初次出现为3 或者 第二次出现为5，其余均不合法； 是否含无效字符：数字坐标中含字母； 是否和上次状态匹配
 
 ### set/get属性值
 ```
@@ -121,37 +119,65 @@ SnapShotTime LatestTime;  // 记录上一个时间
 ## class SnapShot测试
 > SnapShotTest.cpp
 > 
-1. 检查id合法
+
+- 检查id合法
+
 TEST(SnapShot, isIDLegal) 
+
 输入：有空格的id
-2. 检查时间合法
+
+- 检查时间合法
+
 TEST(SnapShot, isTimeLegal)
+
 输入：不符合格式的时间
-3. 分割动物坐标信息行，检查输入数目有效
+
+- 分割动物坐标信息行，检查输入数目有效
+
 TEST(SnapShot, splitXY)
+
 输入：只含有3个坐标的字符串
-4. 检查坐标信息合法
+
+- 检查坐标信息合法
+
 TEST(SnapShot, isXYLegal)
+
 输入：含有字母的字符串
-5. 检查坐标信息有效
+
+- 检查坐标信息有效
+
 TEST(SnapShot, isXYConflict)
+
 输入：在已经出现的情况下，代入两个坐标点
-6. 设置获取状态
+
+- 设置获取状态
+
 TEST(SnapShot, setValues)
+
 输入：set和get是否匹配
-7. 接口函数测试
+
+- 接口函数测试
+
 TEST(SnapShot, GetSnapShot)
+
 输入：样例，坐标错误，时间比上次少
 
 ## class SnapShotTime测试
 > SnapShotTimeTest.cpp
 > 
-1.  重载赋值运算符 =
+
+-  重载赋值运算符 =
+
 TEST(SnapShotTime, operator_COPY) 
-2.  重载大于运算符 >
+
+-  重载大于运算符 >
+
 TEST(SnapShotTime, operator_bigger) 
-3. 设置获取状态
+
+- 设置获取状态
+
 TEST(SnapShotTime, setTimeValues)
+
 输入：set和get是否匹配
 
 
@@ -159,6 +185,7 @@ TEST(SnapShotTime, setTimeValues)
 
 # github链接
 [github - lulu](https://github.com/lulu920819/PracticeCode/tree/master/SnapShot)
+
 [csdn - lulu](http://blog.csdn.net/github_30830155)
 
 ---
