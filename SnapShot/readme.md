@@ -59,6 +59,7 @@ string curAnimalName;	// 当前的读取的最新动物名
 Coordinate curCordinate;  // 当前的最新的坐标
 int LineMode;	// 第几行
 ```
+
 ## 成员函数
 
 ### 检查有效性,合法性
@@ -77,6 +78,7 @@ int LineMode;	// 第几行
 > * 数目：初次出现为3 或者 第二次出现为5，其余均不合法
 > * 是否含无效字符：数字坐标中含字母
 > * 是否和上次状态匹配
+
 ### set/get属性值
 ```
 	// set and get attribute
@@ -99,7 +101,9 @@ int LineMode;	// 第几行
 	StatusInfo& getLatestStatus();
 ```
 
+
 ---
+
 # 单元测试说明
 1. 检查id合法
 TEST(SnapShot, isIDLegal) 
@@ -118,24 +122,16 @@ TEST(SnapShot, isXYConflict)
 输入：在已经出现的情况下，代入两个坐标点
 6. 设置获取状态
 TEST(SnapShot, setValues)
-
 7. 接口函数测试
 TEST(SnapShot, GetSnapShot)
 
 ---
+
 # github链接
 [github - lulu](https://github.com/lulu920819/PracticeCode/tree/master/SnapShot)
-[csdn - lulu] (http://blog.csdn.net/github_30830155)
+[csdn - lulu](http://blog.csdn.net/github_30830155)
 ---
+
 # 改进之处
 1. 判断时间，现在只是正则检查格式和数字，而没有对时间的合理性进行检查，比如闰年
 2. 时间也会存在冲突，下一个时间要满足比上一个时间大
-
----
-
-# 个人信息
-姓名：陆璐
-学校：武汉大学
-学历：研究生
-电话：13886086433
-邮箱：mail2lulu@qq.com
