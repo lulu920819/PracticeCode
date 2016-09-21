@@ -2,7 +2,8 @@
 #include <vector>
 #include <string>
 #include <utility>
-//#define _TEST
+#include "SnapShotTime.h"
+#define _TEST
 #ifndef _TEST
 #define CONTROL private
 #else
@@ -23,17 +24,27 @@ private:
 	string curAnimalName;
 	Coordinate curCordinate;
 	int LineMode;
+	SnapShotTime LatestTime; 
 CONTROL:
 	// validate check
 	bool isIDLegal(string IDLine);
 	bool isTimeLegal(string TimeLine);
+	bool isTimeConflict(string TimeLine);
 	bool isXYLegal(string XYLine,vector<int> &xy_cor);
 	bool isXYConflict(vector<int>& xy_cor);
 	bool splitXY(string XYLine, vector<string> & result);
 
+	// Error
+	string InvalidErr();
+	string ConflictErr(string id);
+
+public:	
 	// set and get attribute
 	void setID(string _id);
 	string getID();
+
+	void setLatestTime(SnapShotTime _LatestTime);
+	SnapShotTime getLastestTime();
 
 	void setAnimalName(string _AnimalName);
 	string getAnimalName();
@@ -50,11 +61,7 @@ CONTROL:
 	string getLatestStatusString();
 	StatusInfo& getLatestStatus();
 
-	// Error
-	string InvalidErr();
-	string ConflictErr(string id);
 
-public:	
 	string GetSnapShot(string historyData, string id);
 
 	SnapShot();
