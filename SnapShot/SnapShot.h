@@ -4,12 +4,6 @@
 #include <utility>
 #include "SnapShotTime.h"
 #define _TEST
-#ifndef _TEST
-#define CONTROL private
-#else
-#define CONTROL public
-#endif
-
 
 using namespace std;
 
@@ -25,7 +19,13 @@ private:
 	Coordinate curCordinate;
 	int LineMode;
 	SnapShotTime LatestTime; 
-CONTROL:
+
+private:
+	// Error
+	string InvalidErr();
+	string ConflictErr(string id);
+
+public:	
 	// validate check
 	bool isIDLegal(string IDLine);
 	bool isTimeLegal(string TimeLine);
@@ -34,11 +34,6 @@ CONTROL:
 	bool isXYConflict(vector<int>& xy_cor);
 	bool splitXY(string XYLine, vector<string> & result);
 
-	// Error
-	string InvalidErr();
-	string ConflictErr(string id);
-
-public:	
 	// set and get attribute
 	void setID(string _id);
 	string getID();
